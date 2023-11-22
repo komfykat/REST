@@ -9,14 +9,15 @@ import java.util.List;
 
 @RestController
 public class MessageController {
-    public static boolean isInteger(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
+//    public static boolean isInteger(String str) {
+//        try {
+//            Integer.parseInt(str);
+//            return true;
+//        } catch (NumberFormatException e) {
+//            return false;
+//        }
+//    }
+
     private final List<String> messages = new ArrayList<>();
 
 
@@ -28,34 +29,33 @@ public class MessageController {
 
     //curl http://localhost:8080/messages/text
     @GetMapping("messages/{text}")
-    public ResponseEntity<Void> getMessages(@PathVariable("text") String text) {
-        if (!isInteger(text)){
-            getMessage(Integer.parseInt(text));
-        }
-        else {
+    public ResponseEntity<ArrayList<String>> getMessages(@PathVariable("text") String text) {
+        try {
+            int n = Integer.parseInt(text);
+            if (n >= messages.size() || n < 0){
+                return null;
+            }
+            else {
+                return ResponseEntity.ok(new ArrayList<String>(List.of(messages.get(n))));
+            }
+        } catch (NumberFormatException ex) {
             ArrayList<String> messagesToReturn = new ArrayList<>();
             for (String message : messages) {
-                if (message.contains(text)) {
+                if (message.startsWith(text)) {
                     messagesToReturn.add(message);
                 }
             }
+            return ResponseEntity.ok(messagesToReturn);
         }
     }
 
-    @GetMapping("messages/{index}")
-    private ResponseEntity<List<String>> getMessage(@PathVariable("text") String
-                                                     text){
-        return ResponseEntity.ok(messages.get(index));
-    }
 
-
-
-    //curl http://localhost:8080/messages/1
-    @GetMapping("messages/{index}")
-    public ResponseEntity<String> getMessage(@PathVariable("index") Integer
-                                                     index){
-        return ResponseEntity.ok(messages.get(index));
-    }
+//    //curl http://localhost:8080/messages/1
+//    @GetMapping("messages/{index}")
+//    public ResponseEntity<String> getMessage(@PathVariable("index") Integer
+//                                                     index) {
+//        return ResponseEntity.ok(messages.get(index));
+//    }
 
     //curl http://localhost:8080/messages/search/count
     @GetMapping("messages/count")
