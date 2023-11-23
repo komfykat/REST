@@ -39,19 +39,14 @@ public class UserController {
 
     // curl -X PUT -H "Content-Type: application/json" -d "{\"age\" : \"17\"}" http://localhost:8080/users/1
     @PutMapping("users/{index}")
-    public ResponseEntity<Void> updateUser(@PathVariable("index") Integer index, @RequestBody LinkedHashMap<String, String> map) {
-        int newAge = Integer.parseInt(map.get("age"));
-        users.get(index).setAge(newAge);
+    public ResponseEntity<Void> updateUser(@PathVariable("index") Integer index, @RequestBody User user) {
+        users.get(index).setAge(user.getAge());
         return ResponseEntity.accepted().build();
     }
 
     // curl -X POST -H "Content-Type: application/json" -d "{\"name\" : \"Max\" , \"age\" : \"17\"}" http://localhost:8080/users
     @PostMapping("users")
-    public ResponseEntity<Void> addUser(@RequestBody LinkedHashMap<String, String> map) {
-
-        String name = map.get("name");
-        int age = Integer.parseInt(map.get("age"));
-        User user = new User(name, age);
+    public ResponseEntity<Void> addUser(@RequestBody User user) {
         users.add(user);
         return ResponseEntity.accepted().build();
     }
