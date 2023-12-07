@@ -1,0 +1,25 @@
+curl -X POST -H "Content-Type: application/json" -d "{\"name\" : \"Math\"}" http://localhost:8080/topics
+curl -X POST -H "Content-Type: application/json" -d "{\"name\" : \"Programming\"}" http://localhost:8080/topics
+curl -X POST -H "Content-Type: application/json" -d "{\"name\" : \"Economics\"}" http://localhost:8080/topics
+curl -X POST -H "Content-Type: application/json" -d "{\"name\" : \"ShowerQuestions\"}" http://localhost:8080/topics
+curl -X POST -H "Content-Type: application/json" -d "{\"name\" : \"asdasd\"}" http://localhost:8080/topics
+curl -X DELETE http://localhost:8080/topics/3
+curl http://localhost:8080/topics
+curl -X PUT -H "Content-Type: application/json" -d "{\"name\" : \"LearnProgramming\"}" http://localhost:8080/topics/1
+curl http://localhost:8080/topics/count
+curl http://localhost:8080/topics/2
+curl -X DELETE http://localhost:8080/topics
+
+curl -X POST -H "Content-Type: application/json" -d "{\"name\" : \"Math\"}" http://localhost:8080/topics
+curl -X POST -H "Content-Type: application/json" -d "{\"name\" : \"Programming\"}" http://localhost:8080/topics
+curl -X POST -H "Content-Type: application/json" -d "{\"name\" : \"Economics\"}" http://localhost:8080/topics
+curl -X POST -H "Content-Type: application/json" -d "{\"name\" : \"ShowerQuestions\"}" http://localhost:8080/topics
+
+curl -X POST -H "Content-Type: application/json" -d "{\"text\" : \"I love math!\", \"username\" : \"DostoevskyFM\"}" http://localhost:8080/topics/comment/0
+curl -X POST -H "Content-Type: application/json" -d "{\"text\" : \"I love math too!\", \"username\" : \"komfykat\"}" http://localhost:8080/topics/comment/0
+curl -X DELETE http://localhost:8080/topics/0/1
+curl -X PUT -H "Content-Type: application/json" -d "{\"text\" : \"I do not love math!\", \"username\" : \"DostoevskyFM\"}" http://localhost:8080/topics/0/0
+curl -X POST -H "Content-Type: application/json" -d "{\"text\" : \"I love algebra!\", \"username\" : \"DostoevskyFM\"}" http://localhost:8080/topics/comment/0
+curl http://localhost:8080/topics/Math/comments
+
+curl http://localhost:8080/topics/userComments/DostoevskyFM
