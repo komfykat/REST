@@ -1,8 +1,17 @@
 package com.example.REST;
 
+import java.util.ArrayList;
+
 public class User {
     String name;
     int age;
+    ArrayList<Comment> comments;
+
+    public User(String name, int age, ArrayList<Comment> comments) {
+        this.name = name;
+        this.age = age;
+        this.comments = comments;
+    }
 
     public User(String name, int age) {
         this.name = name;
