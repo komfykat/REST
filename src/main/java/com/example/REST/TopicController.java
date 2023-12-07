@@ -94,15 +94,39 @@ public class TopicController {
     // curl -X DELETE http://localhost:8080/topics/0/1
     @DeleteMapping("topics/{topicIndex}/{commentIndex}")
     public ResponseEntity<Void> deleteComment(@PathVariable("topicIndex") int topicIndex, @PathVariable("commentIndex") int commentIndex){
+        String text = topics.get(topicIndex).getComments().get(commentIndex).text;
+        String username = topics.get(topicIndex).getComments().get(commentIndex).username;
+        int userIndex = -1;
+        for (int i = 0; i < users.size(); i++){
+            User user = users.get(i);
+            if (Objects.equals(username, user.username)) {
+                userIndex = i;
+                break;
+            }
+        }
+        users.get(userIndex).getComments().remove(text);
         topics.get(topicIndex).getComments().remove(commentIndex);
         return ResponseEntity.noContent().build();
+
     }
 
-    // curl -X PUT -H "Content-Type: application/json" -d "{\"text\" : \"I do not love math!\", \"username\" : \"DostoevskyFM\"}" http://localhost:8080/topics/0/0
+    // curl -X PUT -H "Content-Type: application/json" -d "{\"text\" : \"I do not love math!\"}" http://localhost:8080/topics/0/0
     @PutMapping("topics/{topicIndex}/{commentIndex}")
     public ResponseEntity<Void> updateComment(@PathVariable("topicIndex") int topicIndex, @PathVariable("commentIndex") int commentIndex, @RequestBody Comment comment) {
+        comment.username = topics.get(topicIndex).getComments().get(commentIndex).username;
+        int userIndex = -1;
+        for (int i = 0; i < users.size(); i++){
+            User user = users.get(i);
+            if (Objects.equals(comment.username, user.username)) {
+                userIndex = i;
+                break;
+            }
+        }
+        int index = users.get(userIndex).getComments().indexOf(comment.text);
+        users.get(userIndex).getComments().set(index, comment.text);
         topics.get(topicIndex).getComments().remove(commentIndex);
         topics.get(topicIndex).getComments().add(commentIndex, comment);
+
         return ResponseEntity.accepted().build();
     }
 
