@@ -3,42 +3,30 @@ package com.example.REST;
 import java.util.ArrayList;
 
 public class User {
-    String name;
-    int age;
-    ArrayList<Comment> comments;
+    String username;
+    ArrayList<String> comments;
 
-    public User(String name, int age, ArrayList<Comment> comments) {
-        this.name = name;
-        this.age = age;
+    public User(String name, ArrayList<String> comments) {
+        this.username = name;
         this.comments = comments;
     }
 
-    public User(String name, int age) {
-        this.name = name;
-        this.age = age;
+
+
+    public String getUsername() {
+        return username;
     }
 
-    public String getName() {
-        return name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public ArrayList<String> getComments() {
+        return comments;
     }
 
-    public int getAge() {
-        return age;
+    public void setComments(ArrayList<String> comments) {
+        this.comments = comments;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
 }

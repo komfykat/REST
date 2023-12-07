@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Topic {
     String name;
-    ArrayList<Comment> comments;
+    ArrayList<Comment> comments = new ArrayList<>();
 
     public Topic(String name, ArrayList<Comment> comments) {
         this.name = name;
@@ -13,7 +13,6 @@ public class Topic {
 
     public Topic(String name) {
         this.name = name;
-        this.comments = new ArrayList<Comment>();
     }
 
     public String getName() {
